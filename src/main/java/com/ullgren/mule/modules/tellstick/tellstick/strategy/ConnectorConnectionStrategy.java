@@ -56,7 +56,7 @@ public class ConnectorConnectionStrategy
     
     @Connect
     @TestConnectivity
-    public void connect(@ConnectionKey @Default("1") Integer connectionNumber) throws ConnectionException  {
+    public void connect(@ConnectionKey Integer connectionNumber) throws ConnectionException  {
     	this.tellstick = new Tellstick(this.debug);
     	
     	this.connectionNumber = connectionNumber;

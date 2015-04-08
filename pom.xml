@@ -44,7 +44,7 @@
     	<dependency>
 			<groupId>net.jstick</groupId>  
 			<artifactId>jstick-api</artifactId>  
-			<version>1.1</version> 
+			<version>1.4</version> 
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
