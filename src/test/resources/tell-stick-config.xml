@@ -9,9 +9,9 @@
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/tell-stick http://www.mulesoft.org/schema/mule/tell-stick/1.0/mule-tell-stick.xsd">
 
-    <tell-stick:config-type name="config" myProperty="Some string"/>
+    <tell-stick:config name="config" />
 
     <flow name="testFlow">
-        <tell-stick:my-processor config-ref="config" content="Another string"/>
+        <tell-stick:send-command config-ref="config" command="ON" device="My device" />
     </flow>
 </mule>

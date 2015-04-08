@@ -42,8 +42,8 @@
     </scm>
     <dependencies>
     	<dependency>
-			<groupId>net.jstick</groupId>  
-			<artifactId>jstick-api</artifactId>  
+            <groupId>net.juppi</groupId>
+            <artifactId>jstick-api</artifactId>
 			<version>1.4</version> 
 		</dependency>
 		<dependency>

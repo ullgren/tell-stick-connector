@@ -8,11 +8,19 @@ package com.ullgren.mule.modules.tellstick.tellstick;
 import java.util.ArrayList;
 
 import net.jstick.api.Device;
+import net.jstick.api.DeviceChangeEvent;
+import net.jstick.api.DeviceChangeEventListener;
+import net.jstick.api.DeviceEvent;
+import net.jstick.api.DeviceEventListener;
+import net.jstick.api.SensorEvent;
+import net.jstick.api.SensorEventListener;
 
 import org.mule.api.annotations.ConnectionStrategy;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Source;
 import org.mule.api.annotations.param.Default;
+import org.mule.api.callback.SourceCallback;
 
 import com.ullgren.mule.modules.tellstick.tellstick.strategy.ConnectorConnectionStrategy;
 
@@ -121,6 +129,55 @@ public class TellStickConnector
     @Processor
     public ArrayList<Device> getDevices() {
     	return this.connectionStrategy.getTellstick().getDevices();
+    }
+    
+    /**
+     * 
+     * @param callback
+     */
+    @Source
+    public void deviceEvent(final SourceCallback callback) {
+    	this.connectionStrategy.getTellstick().addDeviceEventListener(new DeviceEventListener() {
+			
+			@Override
+			public void eventReceived(DeviceEvent event) {
+				try {
+					callback.process(event);
+				} catch (Exception e) {
+					// TODO: Handle exception
+				}
+			}
+		});
+    }
+    
+    @Source
+    public void deviceChangeEvent(final SourceCallback callback) {
+    	this.connectionStrategy.getTellstick().addDeviceChangeEventListener(new DeviceChangeEventListener() {
+			
+			@Override
+			public void eventReceived(DeviceChangeEvent event) {
+				try {
+					callback.process(event);
+				} catch (Exception e) {
+					// TODO: Handle exception
+				}
+			}
+		});
+    }
+    
+    @Source
+    public void sensorEvent(final SourceCallback callback) {
+    	this.connectionStrategy.getTellstick().addSensorEventListener(new SensorEventListener() {
+			
+			@Override
+			public void eventReceived(SensorEvent event) {
+				try {
+					callback.process(event);
+				} catch (Exception e) {
+					// TODO: Handle exception
+				}
+			}
+		});
     }
 
     public ConnectorConnectionStrategy getConnectionStrategy() {

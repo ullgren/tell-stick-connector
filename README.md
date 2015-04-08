@@ -15,7 +15,7 @@ This module has been tested with TellStick DUO.
 This connector depends on [jstick api](http://jstick.net/) and since it is not available in any public maven repo you need to install it into your local maven repository.
 
 ```
-mvn install:install-file -Dfile=lib/jstick-api-1.4.jar -DgroupId=net.jstick \
+mvn install:install-file -Dfile=lib/jstick-api-1.4.jar -DgroupId=net.juppi \
     -DartifactId=jstick-api -Dversion=1.4 -Dpackaging=jar
 ```
 
