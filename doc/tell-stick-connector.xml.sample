@@ -1,0 +1,15 @@
+<!-- BEGIN_INCLUDE(tell-stick:send-command) -->
+    <tell-stick:send-command config-ref="" command="#[map-payload:content]" device="#[map-payload:device]" />
+<!-- END_INCLUDE(tell-stick:send-command) -->
+
+<!-- BEGIN_INCLUDE(tell-stick:learn) -->
+    <tell-stick:learn config-ref="" device="#[map-payload:device]" />
+<!-- END_INCLUDE(tell-stick:learn) -->
+
+<!-- BEGIN_INCLUDE(tell-stick:get-last-command) -->
+    <tell-stick:get-last-command config-ref="" device="#[map-payload:device]" />
+<!-- END_INCLUDE(tell-stick:get-last-command) -->
+
+<!-- BEGIN_INCLUDE(tell-stick:get-devices) -->
+    <tell-stick:get-devices config-ref="" />
+<!-- END_INCLUDE(tell-stick:get-devices) -->
