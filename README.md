@@ -1,6 +1,8 @@
 # TellStick Anypoint Connector
 
-This connector makes it possible to connect to a  [telldus-core](http://developer.telldus.com/wiki/TellStickInstallationUbuntu) telldusd and control devices connected to it.
+This connector makes it possible to connect to a Telldus TellStick to control and recive events from devices and sensors connected to it.
+
+The [Telldus Tellstick DUO](http://www.telldus.se/products/tellstick_duo) allows you to control and receive events from a [wide range of devices](http://www.telldus.se/products/compability).
 
 # Mule supported versions
 
@@ -19,7 +21,7 @@ mvn install:install-file -Dfile=lib/jstick-api-1.4.jar -DgroupId=net.juppi \
     -DartifactId=jstick-api -Dversion=1.4 -Dpackaging=jar
 ```
 
-To be abel to use this connector you need to have a Tellstick device (standard or DUO) along with [telldus-core](http://developer.telldus.com/wiki/TellStickInstallationUbuntu) 
+To be able to use this connector you need to have a Tellstick device (standard or DUO) along with [telldus-core](http://developer.telldus.com/wiki/TellStickInstallationUbuntu) 
 software running on a Linux box (currently only Linux is supported due to limitation in the jstick-api). 
 The runtime library libtelldus-core.so should be installed in system library path to make life easier.
 
