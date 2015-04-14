@@ -9,9 +9,10 @@
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/tell-stick http://www.mulesoft.org/schema/mule/tell-stick/1.0/mule-tell-stick.xsd">
 
-    <tell-stick:config name="config" />
+    <tell-stick:config name="config" connectionNumber="1"/>
 
     <flow name="testFlow">
         <tell-stick:send-command config-ref="config" command="ON" device="My device" />
+        <set-payload value="Another string" />
     </flow>
 </mule>
