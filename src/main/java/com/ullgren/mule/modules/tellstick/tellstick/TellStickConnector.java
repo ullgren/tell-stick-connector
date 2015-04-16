@@ -27,7 +27,7 @@ import com.ullgren.mule.modules.tellstick.tellstick.strategy.ConnectorConnection
 /**
  * Anypoint Connector
  *
- * @author MuleSoft, Inc.
+ * @author Pontus Ullgren
  */
 @Connector(name="tell-stick", friendlyName="TellStick")
 public class TellStickConnector
@@ -132,8 +132,12 @@ public class TellStickConnector
     }
     
     /**
+     * Receives a device event from the Telldus Tellstick.
      * 
-     * @param callback
+     * {@sample.xml ../../../doc/tell-stick-connector.xml.sample tell-stick:device-event}
+     * 
+     * @param callback the {@link SourceCallback} used to propagate the event
+     * to the rest of the flow.
      */
     @Source
     public void deviceEvent(final SourceCallback callback) {
@@ -150,6 +154,14 @@ public class TellStickConnector
 		});
     }
     
+    /**
+     * Receives a device change event from the Telldus Tellstick.
+     * 
+     * {@sample.xml ../../../doc/tell-stick-connector.xml.sample tell-stick:device-change-event}
+     * 
+     * @param callback the {@link SourceCallback} used to propagate the event
+     * to the rest of the flow.
+     */
     @Source
     public void deviceChangeEvent(final SourceCallback callback) {
     	this.connectionStrategy.getTellstick().addDeviceChangeEventListener(new DeviceChangeEventListener() {
@@ -165,6 +177,14 @@ public class TellStickConnector
 		});
     }
     
+    /**
+     * Receives a sensor event from the Telldus Tellstick.
+     * 
+     * {@sample.xml ../../../doc/tell-stick-connector.xml.sample tell-stick:sensor-event}
+     * 
+     * @param callback the {@link SourceCallback} used to propagate the event
+     * to the rest of the flow.
+     */
     @Source
     public void sensorEvent(final SourceCallback callback) {
     	this.connectionStrategy.getTellstick().addSensorEventListener(new SensorEventListener() {

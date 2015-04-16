@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule  xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:tell-stick="http://www.mulesoft.org/schema/mule/tell-stick" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.6.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tell-stick http://www.mulesoft.org/schema/mule/tell-stick/current/mule-tell-stick.xsd">
+
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+
+    <tell-stick:config name="TellStick__TellStick_Connector_Configuration" connectionNumber="1" doc:name="TellStick: TellStick Connector Configuration" />
+   
+    <flow name="controlViaHttp" doc:description="This flow shows how you can send a comand to a reciver from a HTTP endpoint.">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/>
+        <logger message="Command recived from the query string #[message.inboundProperties.'http.query.params'.cmd]" level="INFO" doc:name="Log CMD"/>
+        
+        <async doc:name="Async">
+        	<tell-stick:send-command config-ref="TellStick__TellStick_Connector_Configuration" 
+        		command="#[message.inboundProperties.'http.query.params'.cmd]" device="Test switch" doc:name="Send command to Tellstick"/>
+       	</async>
+    </flow>
+    <flow name="actOnMotionSensorEvent" doc:description="Listen for Device Events and act on events from the Motion Sensor.">
+        <tell-stick:device-event config-ref="TellStick__TellStick_Connector_Configuration" doc:name="Recieve Device Event"/>
+        <expression-filter expression="#[payload.deviceId==5]" doc:name="Only accept events from device no. 5"/>
+        <choice doc:name="Depending on method">
+            <when expression="#[payload.method == 1]">
+                <tell-stick:send-command config-ref="TellStick__TellStick_Connector_Configuration" command="ON" device="Test Device" doc:name="Turn Test Device ON"/>
+            </when>
+            <otherwise>
+                <tell-stick:send-command config-ref="TellStick__TellStick_Connector_Configuration" command="OFF" device="Test Device" doc:name="Turn Test Device OFF"/>
+            </otherwise>
+        </choice>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <logger message="#[payload]" level="INFO" doc:name="Log the complete event"/>
+    </flow>
+    <flow name="logSensorEvents" doc:description="Recieve sensor events, such as temprature sensor, and log the event data">
+        <tell-stick:sensor-event config-ref="TellStick__TellStick_Connector_Configuration" doc:name="Recieve Sensor Event"/>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <logger message="#[payload]" level="INFO" doc:name="Log sensor event data"/>
+    </flow>
+</mule>

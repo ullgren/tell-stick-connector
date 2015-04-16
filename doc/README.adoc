@@ -1,0 +1,25 @@
+----
+= Tellstick Anypoint™ Connector
+ ---
+This connector makes it possible to connect to a Telldus TellStick to control and recive events from devices and sensors connected to it.
+
+The Telldus Tellstick DUO (http://www.telldus.se/products/tellstick_duo) allows you to control and receive events from a  wide range of devices (http://www.telldus.se/products/compability).
+
+== Author
+Pontus Ullgren
+
+== Supported Mule runtime versions
+Mule 3.6.x
+
+== Telldus Tellstick supported versions
+This module has been tested with Telldus Core version 2.1.2 on Ubuntu Linux 12.04.
+
+== Installation 
+
+You can access the full documentation https://github.com/ullgren/tell-stick-connector.
+
+== Reporting Issues
+
+(Only for open source connectors)
+
+We use GitHub:Issues for tracking issues with this connector. You can report new issues at this link https://github.com/ullgren/tell-stick-connector/issues.

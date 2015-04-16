@@ -1,0 +1,56 @@
+= Tellstick Anypoint™ Connector Release Notes
+
+
+== Tellstick Connector 1.0.2 Release Notes
+=== 2015-04-14
+
+=== Contents
+
+. Compatibility
+. Features
+. Fixed in this Release
+. Known Issues
+. Support Resources
+
+Release Notes for version 1.0.2 of the Tellstick connector. These Release Notes accompany the  https://github.com/ullgren/tell-stick-connector guide.
+ 
+=== Compatibility
+The Tellstick connector is compatible with:
+
+|===
+|Application/Service|Version
+
+|Mule Runtime|3.6.0 or higher
+|Telldus Core |2.1.2
+|===
+
+=== Migrating from older versions of the connector:
+
+If you’re currently using connector 1.0.0 to migrate to this connector you need to:
+
+. No migration steps necessary
+
+
+=== Features
+
+. Device control - Send commands such as ON, OFF or DIM to devices.
+. Sensor events - Receive sensor events as flow source.
+
+Example of a Feature listing:
+
+NTLM Authentication - NTLM authentication is now more robust and widely compatible with more domain controller configurations. 
+
+=== Fixed in this Release
+
+. None fixed in this version
+
+=== Known Issues
+
+You need to specify a dummy value for the connectionNumber in the connector configuration.
+
+=== Support Resources
+
+. Learn how to Install and Configure Anypoint Connectors in Anypoint Studio.
+. Access MuleSoft’s forum to pose questions and get help from Mule’s broad community of users.
+. To access MuleSoft’s expert support team, subscribe to Mule ESB Enterprise and log in to MuleSoft’s Customer Portal.
+

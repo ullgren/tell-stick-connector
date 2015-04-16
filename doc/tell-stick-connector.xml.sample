@@ -13,3 +13,16 @@
 <!-- BEGIN_INCLUDE(tell-stick:get-devices) -->
     <tell-stick:get-devices config-ref="" />
 <!-- END_INCLUDE(tell-stick:get-devices) -->
+
+<!-- BEGIN_INCLUDE(tell-stick:device-event) -->
+    <tell-stick:device-event config-ref="" />
+<!-- END_INCLUDE(tell-stick:device-event) -->
+
+<!-- BEGIN_INCLUDE(tell-stick:device-change-event) -->
+    <tell-stick:device-change-event config-ref="" />
+<!-- END_INCLUDE(tell-stick:device-change-event) -->
+
+<!-- BEGIN_INCLUDE(tell-stick:sensor-event) -->
+    <tell-stick:sensor-event config-ref="" />
+<!-- END_INCLUDE(tell-stick:sensor-event) -->
+
