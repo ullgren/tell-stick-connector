@@ -5,8 +5,6 @@
 
 package com.ullgren.mule.modules.tellstick.tellstick.strategy;
 
-import net.jstick.api.Tellstick;
-
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Connect;
@@ -15,27 +13,36 @@ import org.mule.api.annotations.Disconnect;
 import org.mule.api.annotations.TestConnectivity;
 import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.components.ConnectionManagement;
+import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.display.Summary;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.Optional;
 
 /**
  * Configuration type Strategy
  *
- * @author MuleSoft, Inc.
+ * @author Pontus Ullgren
  */
-@ConnectionManagement(configElementName = "config", friendlyName = "TellStick Connector Configuration")
+@ConnectionManagement(configElementName = "config", 
+	friendlyName = "TellStick Connector Configuration")
 public class ConnectorConnectionStrategy
 {
-	
-	private Tellstick tellstick;
+
+	@Configurable
+	@Optional 
+	@Placement(tab="Development Settings", group="Tellstick Client Settings") 
+	@FriendlyName("Tellstick Client reference") 
+	@Summary("Developer provided reference to a TellstickClient bean. This option is usually only used for testing or development purposes.")
+	private TellstickClient client;
 	
 	private Integer connectionNumber;
 	
-    /**
-     * Configurable
-     */
     @Configurable
     @Default("false")
+    @FriendlyName("Enable JNA Debug")
+    @Summary("Enabled JNA Debug logging")
     private boolean debug;
 
     /**
@@ -56,24 +63,26 @@ public class ConnectorConnectionStrategy
     
     @Connect
     @TestConnectivity
-    public void connect(@ConnectionKey Integer connectionNumber) throws ConnectionException  {
-    	this.tellstick = new Tellstick(this.debug);
-    	
+    public void connect(@ConnectionKey @Summary("This values is used by Mule ESB to keep track of the connector. Simply use a application unique number.") Integer connectionNumber) throws ConnectionException  {
+    	if ( this.client == null ) {
+    		this.client = new BasicTellstickClient(this.debug);
+    	}
+    	this.client.init();
     	this.connectionNumber = connectionNumber;
     }
     
     @Disconnect
     public void disconnect() {
-    	if ( this.tellstick != null ) {
-    		this.tellstick.close();
-    		this.tellstick = null;
+    	if ( this.client != null ) {
+    		this.client.close();
+    		this.client = null;
     	}
     	return;
     }
     
     @ValidateConnection
     public boolean isConnected() {
-        if ( this.tellstick != null ) {
+        if ( this.client != null ) {
         	return true;
         } else {
         	return false;
@@ -85,8 +94,12 @@ public class ConnectorConnectionStrategy
         return this.connectionNumber.toString();
     }
     
-    public Tellstick getTellstick() {
-		return tellstick;
+    public void setClient(TellstickClient client) {
+		this.client = client;
+	}
+    
+    public TellstickClient getClient() {
+		return client;
 	}
 
 }

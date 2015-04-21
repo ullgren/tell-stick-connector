@@ -6,7 +6,7 @@
 package com.ullgren.mule.modules.tellstick.tellstick;
 
 import org.mule.modules.tests.ConnectorTestCase;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TellStickConnectorTest extends ConnectorTestCase {
@@ -17,7 +17,10 @@ public class TellStickConnectorTest extends ConnectorTestCase {
     }
 
     @Test
-    public void testFlow() throws Exception {
-        runFlowAndExpect("testFlow", "Another string");
+    public void testSendCommandFlow() throws Exception {
+    	StubTellstickClient client = muleContext.getRegistry().get("stubTellstick");
+    	runFlowWithPayloadAndExpect("testSendCommandFlow", "Another string", "My device");
+    	// Verify that the tellstick client has been called for device "My device" (id == 1)
+        Assert.assertEquals("ON", client.getLastCmd(1));
     }
 }

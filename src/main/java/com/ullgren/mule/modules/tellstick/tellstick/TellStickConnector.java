@@ -84,7 +84,7 @@ public class TellStickConnector
     	
     	int id = getDeviceIdFromString(device);
     	
-    	int status = this.connectionStrategy.getTellstick().sendCmd(id, command, repeat);
+    	int status = this.connectionStrategy.getClient().sendCmd(id, command, repeat);
     	// TODO: Error handler when status is not OK
         return;
     }
@@ -99,7 +99,7 @@ public class TellStickConnector
     @Processor
     public void learn(String device) {
     	int id = getDeviceIdFromString(device);
-    	int status = this.connectionStrategy.getTellstick().learn(id);
+    	int status = this.connectionStrategy.getClient().learn(id);
     	// TODO: Error handler when status is not OK
         return;
     }
@@ -116,7 +116,7 @@ public class TellStickConnector
     @Processor
     public String getLastCommand(String device) {
     	int id = getDeviceIdFromString(device);
-    	return this.connectionStrategy.getTellstick().getLastCmd(id);
+    	return this.connectionStrategy.getClient().getLastCmd(id);
     }
     
     /**
@@ -128,7 +128,7 @@ public class TellStickConnector
      */
     @Processor
     public ArrayList<Device> getDevices() {
-    	return this.connectionStrategy.getTellstick().getDevices();
+    	return this.connectionStrategy.getClient().getDevices();
     }
     
     /**
@@ -141,7 +141,7 @@ public class TellStickConnector
      */
     @Source
     public void deviceEvent(final SourceCallback callback) {
-    	this.connectionStrategy.getTellstick().addDeviceEventListener(new DeviceEventListener() {
+    	this.connectionStrategy.getClient().addDeviceEventListener(new DeviceEventListener() {
 			
 			@Override
 			public void eventReceived(DeviceEvent event) {
@@ -164,7 +164,7 @@ public class TellStickConnector
      */
     @Source
     public void deviceChangeEvent(final SourceCallback callback) {
-    	this.connectionStrategy.getTellstick().addDeviceChangeEventListener(new DeviceChangeEventListener() {
+    	this.connectionStrategy.getClient().addDeviceChangeEventListener(new DeviceChangeEventListener() {
 			
 			@Override
 			public void eventReceived(DeviceChangeEvent event) {
@@ -187,7 +187,7 @@ public class TellStickConnector
      */
     @Source
     public void sensorEvent(final SourceCallback callback) {
-    	this.connectionStrategy.getTellstick().addSensorEventListener(new SensorEventListener() {
+    	this.connectionStrategy.getClient().addSensorEventListener(new SensorEventListener() {
 			
 			@Override
 			public void eventReceived(SensorEvent event) {
@@ -209,7 +209,7 @@ public class TellStickConnector
     }
     
     private int getDeviceIdFromString(String device) {
-		return this.connectionStrategy.getTellstick().getDeviceIdByName(device);
+		return this.connectionStrategy.getClient().getDeviceIdByName(device);
 	}
 
 }
