@@ -34,6 +34,11 @@
            <url>http://repository.mulesoft.org/snapshots/</url>
            <layout>default</layout>
        </repository>
+       <repository>
+	   <id>bintray-ullgren-maven</id>
+           <name>bintray</name>
+           <url>http://dl.bintray.com/ullgren/maven</url>
+       </repository>
     </repositories>
     <scm>
         <connection>scm:git:git://github.com:ullgren/tell-stick-connector.git</connection>
@@ -44,12 +49,18 @@
     	<dependency>
             <groupId>net.juppi</groupId>
             <artifactId>jstick-api</artifactId>
-			<version>1.4</version> 
-		</dependency>
-		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna</artifactId>
-			<version>4.1.0</version>
-		</dependency>
+	    <version>1.4</version> 
+            <exclusions>
+              <exclusion>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+              </exclusion>
+            </exclusions> 
+	</dependency>
+	<dependency>
+		<groupId>net.java.dev.jna</groupId>
+		<artifactId>jna</artifactId>
+		<version>4.1.0</version>
+	</dependency>
     </dependencies>
 </project>
