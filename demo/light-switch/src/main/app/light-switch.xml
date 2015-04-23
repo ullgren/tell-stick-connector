@@ -22,23 +22,4 @@ http://www.mulesoft.org/schema/mule/tell-stick http://www.mulesoft.org/schema/mu
         		command="#[message.inboundProperties.'http.query.params'.cmd]" device="Test switch" doc:name="Send command to Tellstick"/>
        	</async>
     </flow>
-    <flow name="actOnMotionSensorEvent" doc:description="Listen for Device Events and act on events from the Motion Sensor.">
-        <tell-stick:device-event config-ref="TellStick__TellStick_Connector_Configuration" doc:name="Recieve Device Event"/>
-        <expression-filter expression="#[payload.deviceId==5]" doc:name="Only accept events from device no. 5"/>
-        <choice doc:name="Depending on method">
-            <when expression="#[payload.method == 1]">
-                <tell-stick:send-command config-ref="TellStick__TellStick_Connector_Configuration" command="ON" device="Test Device" doc:name="Turn Test Device ON"/>
-            </when>
-            <otherwise>
-                <tell-stick:send-command config-ref="TellStick__TellStick_Connector_Configuration" command="OFF" device="Test Device" doc:name="Turn Test Device OFF"/>
-            </otherwise>
-        </choice>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
-        <logger message="#[payload]" level="INFO" doc:name="Log the complete event"/>
-    </flow>
-    <flow name="logSensorEvents" doc:description="Recieve sensor events, such as temprature sensor, and log the event data">
-        <tell-stick:sensor-event config-ref="TellStick__TellStick_Connector_Configuration" doc:name="Recieve Sensor Event"/>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
-        <logger message="#[payload]" level="INFO" doc:name="Log sensor event data"/>
-    </flow>
 </mule>
